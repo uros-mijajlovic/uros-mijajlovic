@@ -3,65 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smooth - Terms of Service</title>
+    <title>Terms of Service</title>
     <style>
         body {
             display: flex;
-            justify-content: center;
             align-items: center;
-            height: 100vh;
+            justify-content: center;
+            min-height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
         }
-        .terms-container {
-            width: 80%;
-            max-width: 600px;
-            height: 80vh;
+        #terms-container {
+            width: 90%;
+            max-width: 700px;
+            max-height: 80vh;
+            padding: 30px;
             overflow-y: auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
             background-color: #ffffff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            font-size: 1.5em;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        p {
+            border-radius: 8px;
             line-height: 1.6;
+        }
+        #terms-container h1 {
+            font-size: 1.8em;
+            margin-bottom: 0.5em;
+            color: #333;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 0.2em;
+        }
+        #terms-container h2 {
+            font-size: 1.5em;
+            margin-top: 1.5em;
+            color: #444;
+        }
+        #terms-container h3 {
+            font-size: 1.2em;
+            margin-top: 1.2em;
+            color: #555;
+        }
+        #terms-container p {
+            margin-bottom: 1em;
+            color: #666;
+        }
+        #terms-container ul, #terms-container ol {
+            margin: 1em 0;
+            padding-left: 1.2em;
+            color: #555;
+        }
+        #terms-container ul li, #terms-container ol li {
+            margin-bottom: 0.5em;
         }
     </style>
 </head>
 <body>
 
-<div class="terms-container">
-    <h1>Terms of Service for Smooth</h1>
-    <p><strong>Last updated: [Date]</strong></p>
+<div id="terms-container">Loading terms...</div>
 
-    <p>Welcome to Smooth! Please read these Terms of Service ("Terms") carefully before using the Smooth app (the "App") operated by us ("Company," "we," "us," or "our").</p>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+    async function loadTerms() {
+        const url = "https://uros-mijajlovic.github.io/uros-mijajlovic/smooth/terms.md";
+        try {
+            const response = await fetch(url);
+            const text = await response.text();
+            document.getElementById("terms-container").innerHTML = marked.parse(text);
+        } catch (error) {
+            document.getElementById("terms-container").innerText = "Failed to load terms. Please try again later.";
+        }
+    }
+    loadTerms();
+</script>
 
-    <p>By accessing or using Smooth, you agree to be bound by these Terms. If you do not agree to all the terms, please do not use our App.</p>
-
-    <h2>1. Subscriptions</h2>
-    <p>Smooth offers subscription plans that grant access to premium features. By subscribing, you agree to pay the subscription fee at the rate displayed at the time of purchase. Subscriptions renew automatically unless canceled at least 24 hours before the end of the current period.</p>
-    <p><strong>No Refunds:</strong> All payments are final and non-refundable. If you wish to cancel your subscription, you can manage it through your iOS device settings.</p>
-
-    <h2>2. Age Requirement</h2>
-    <p>You must be at least 18 years old to use Smooth. By using the App, you confirm that you meet this requirement.</p>
-
-    <h2>3. Privacy</h2>
-    <p>Smooth does not collect any personal data. We respect your privacy and are committed to keeping your experience secure and private.</p>
-
-    <h2>4. Use of the App</h2>
-    <p>Smooth is for personal use only. You agree not to use the App for any unlawful or prohibited purpose.</p>
-
-    <h2>5. Modifications</h2>
-    <p>We may update these Terms occasionally to reflect changes in our services. The latest version of the Terms will be available within the App. By continuing to use the App, you accept any modified terms.</p>
-
-    <h2>6. Contact Us</h2>
-    <p>If you have questions or concerns about these Terms, please contact us at <a href="mailto:urosmijajlovic@gmail.com"></a></p>
-</div>
 </body>
+</html>
