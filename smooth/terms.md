@@ -1,6 +1,6 @@
 Terms of Service for Smooth
 
-Last updated: [Date]
+Last updated: September 10, 2025
 
 Welcome to Smooth! Please read these Terms of Service ("Terms") carefully before using the Smooth app (the "App") operated by us ("Company," "we," "us," or "our").
 

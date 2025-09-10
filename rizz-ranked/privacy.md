@@ -1,6 +1,6 @@
 # Privacy Policy for Rizz Ranked
 
-**Last updated: [Date]**
+**Last updated: September 10, 2025**
 
 This Privacy Policy describes how **Rizz Ranked** ("we," "us," or "our") handles your information when you use our mobile application, Rizz Ranked (the "App").
 

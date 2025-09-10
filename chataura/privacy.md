@@ -1,6 +1,6 @@
 # Privacy Policy for ChatAura
 
-**Last updated: [Date]**
+**Last updated: September 10, 2025**
 
 This Privacy Policy describes how **ChatAura** ("we," "us," or "our") handles your information when you use our mobile application, ChatAura (the "App").
 

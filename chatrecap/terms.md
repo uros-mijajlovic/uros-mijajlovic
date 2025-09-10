@@ -1,6 +1,6 @@
 # Terms of Service for ChatRecap AI
 
-**Last updated: [Date]**
+**Last updated: September 10, 2025**
 
 Welcome to ChatRecap AI! Please read these Terms of Service ("Terms") carefully before using the ChatRecap AI app (the "App") operated by us ("Company," "we," "us," or "our"). 
 

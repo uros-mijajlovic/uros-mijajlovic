@@ -1,6 +1,6 @@
 Terms of Service for Rizz Ranked
 
-Last updated: [Date]
+Last updated: September 10, 2025
 
 Welcome to Rizz Ranked! Please read these Terms of Service ("Terms") carefully before using the Rizz Ranked app (the "App") operated by us ("Company," "we," "us," or "our").
 
