@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uros Mijajlovic</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 600px;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 30px;
+            display: block;
+            border: 3px solid #333;
+        }
+        
+        .name {
+            font-size: 42px;
+            font-weight: 300;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+        
+        .title {
+            font-size: 18px;
+            color: #888;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 28px;
+            font-weight: 600;
+            color: #fff;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+        
+        .contact {
+            margin-top: 40px;
+        }
+        
+        .contact-item {
+            margin: 8px 0;
+            font-size: 16px;
+        }
+        
+        .contact-item a {
+            color: #888;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .contact-item a:hover {
+            color: #fff;
+        }
+        
+        .divider {
+            width: 40px;
+            height: 1px;
+            background: #333;
+            margin: 30px auto;
+        }
+        
+        .projects {
+            margin: 40px 0;
+        }
+        
+        .projects-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .project-card {
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .project-card a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .project-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            object-fit: cover;
+            margin-bottom: 12px;
+            border: 1px solid #333;
+        }
+        
+        .project-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            color: #fff;
+        }
+        
+        .project-desc {
+            font-size: 13px;
+            color: #666;
+            font-weight: 400;
+        }
+        
+        @media (max-width: 600px) {
+            .name {
+                font-size: 32px;
+            }
+            
+            .stats {
+                gap: 40px;
+            }
+            
+            .stat-number {
+                font-size: 24px;
+            }
+            
+            .projects-grid {
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="pfp.jpeg" alt="Uros Mijajlovic" class="profile-img">
+        
+        <h1 class="name">Uroš Mijajlović</h1>
+        <p class="title">I make viral apps</p>
+        
+        <div class="stats">
+            <div class="stat">
+                <span class="stat-number">600K+</span>
+                <span class="stat-label">Downloads</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">$150K+</span>
+                <span class="stat-label">Revenue</span>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="projects">
+            <div class="projects-grid">
+                <div class="project-card">
+                    <a href="https://apps.apple.com/us/app/chatrecap-ai-chat-analysis/id6738325645" target="_blank">
+                        <img src="chatrecap.webp" alt="ChatRecap AI" class="project-logo">
+                        <h3 class="project-title">ChatRecap AI</h3>
+                        <p class="project-desc">$10K MRR</p>
+                    </a>
+                </div>
+                <div class="project-card">
+                    <a href="https://apps.apple.com/ca/app/smooth-irl-approach-lessons/id6737240733?platform=iphone" target="_blank">
+                        <img src="smooth-logo.png" alt="Smooth" class="project-logo">
+                        <h3 class="project-title">Smooth</h3>
+                        <p class="project-desc">$50 MRR</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="contact">
+            <div class="contact-item">
+                <a href="mailto:urosmijajlovic@gmail.com">urosmijajlovic@gmail.com</a>
+            </div>
+            <div class="contact-item">
+                <a href="tel:+38169665415">+381 69 665 415</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
