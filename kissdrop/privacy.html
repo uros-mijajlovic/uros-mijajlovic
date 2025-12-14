@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+        }
+        #terms-container {
+            width: 90%;
+            max-width: 700px;
+            max-height: 80vh;
+            padding: 30px;
+            overflow-y: auto;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            line-height: 1.6;
+        }
+        #terms-container h1 {
+            font-size: 1.8em;
+            margin-bottom: 0.5em;
+            color: #333;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 0.2em;
+        }
+        #terms-container h2 {
+            font-size: 1.5em;
+            margin-top: 1.5em;
+            color: #444;
+        }
+        #terms-container h3 {
+            font-size: 1.2em;
+            margin-top: 1.2em;
+            color: #555;
+        }
+        #terms-container p {
+            margin-bottom: 1em;
+            color: #666;
+        }
+        #terms-container ul, #terms-container ol {
+            margin: 1em 0;
+            padding-left: 1.2em;
+            color: #555;
+        }
+        #terms-container ul li, #terms-container ol li {
+            margin-bottom: 0.5em;
+        }
+    </style>
+</head>
+<body>
+
+<div id="terms-container">Loading privacy policy...</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+    async function loadTerms() {
+        const url = "./privacy.md";
+        try {
+            const response = await fetch(url);
+            const text = await response.text();
+            document.getElementById("terms-container").innerHTML = marked.parse(text);
+        } catch (error) {
+            document.getElementById("terms-container").innerText = "Failed to load privacy policy. Please try again later.";
+        }
+    }
+    loadTerms();
+</script>
+
+</body>
+</html>
