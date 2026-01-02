@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terms of Service</title>
+    <title>Privacy Policy</title>
     <style>
         body {
             display: flex;
@@ -58,18 +58,18 @@
 </head>
 <body>
 
-<div id="terms-container">Loading terms...</div>
+<div id="terms-container">Loading privacy policy...</div>
 
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
     async function loadTerms() {
-        const url = "./terms.md";
+        const url = "./privacy.md";
         try {
             const response = await fetch(url);
             const text = await response.text();
             document.getElementById("terms-container").innerHTML = marked.parse(text);
         } catch (error) {
-            document.getElementById("terms-container").innerText = "Failed to load terms. Please try again later.";
+            document.getElementById("terms-container").innerText = "Failed to load privacy policy. Please try again later.";
         }
     }
     loadTerms();
@@ -77,4 +77,3 @@
 
 </body>
 </html>
-
