@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiss Hoodie Checkout</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .checkout-container {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: #333;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        input[type="text"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="tel"]:focus {
+            outline: none;
+            border-color: #007AFF;
+        }
+
+        input[readonly] {
+            background-color: #f9f9f9;
+            cursor: not-allowed;
+        }
+
+        #map {
+            height: 400px;
+            width: 100%;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            margin-top: 8px;
+        }
+
+        .map-instruction {
+            font-size: 0.85em;
+            color: #888;
+            margin-top: 12px;
+            font-style: italic;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .drop-bomb-btn {
+            flex: 1;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 1.1em;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .drop-bomb-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #ee5a6f 0%, #ff6b6b 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        .drop-bomb-btn:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .drop-bomb-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .restart-btn {
+            flex: 1;
+            background: linear-gradient(135deg, #ffa726 0%, #fb8c00 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 1.1em;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(255, 167, 38, 0.3);
+        }
+
+        .restart-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #fb8c00 0%, #ffa726 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 167, 38, 0.4);
+        }
+
+        .restart-btn:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .restart-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .checkout-button {
+            width: 100%;
+            background: #007AFF;
+            color: white;
+            border: none;
+            padding: 18px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background 0.3s;
+        }
+
+        .checkout-button:hover:not(:disabled) {
+            background: #0051D5;
+        }
+
+        .checkout-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Plane icon styles */
+        .plane-icon {
+            font-size: 35px;
+            transform-origin: center;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+        }
+
+        /* Bomb animation */
+        .bomb-marker {
+            font-size: 30px;
+            animation: bombFall 1.5s ease-in forwards;
+        }
+
+        @keyframes bombFall {
+            0% { 
+                transform: translateY(-150px) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(0) rotate(360deg);
+                opacity: 1;
+            }
+        }
+
+        /* Explosion effect */
+        .explosion {
+            font-size: 50px;
+            animation: explode 0.8s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% { 
+                transform: scale(0);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 1;
+            }
+            100% { 
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        .country-selected {
+            background: #e8f5e9;
+            border-color: #4caf50 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="checkout-container">
+        <h1>Kiss Hoodie Checkout</h1>
+        
+        <form id="checkoutForm" onsubmit="handleCheckout(event)">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required placeholder="Enter your full name">
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required placeholder="+1 (555) 123-4567">
+            </div>
+
+            <div class="form-group">
+                <label for="country">Country</label>
+                <input type="text" id="country" name="country" readonly placeholder="Drop bomb to select country..." required>
+                <div id="map"></div>
+                <div class="button-group">
+                    <button type="button" class="drop-bomb-btn" id="dropBombBtn" onclick="dropBomb()">
+                        💣 DROP THE BOMB!
+                    </button>
+                    <button type="button" class="restart-btn" id="restartBtn" onclick="restart()">
+                        🔄 RESTART
+                    </button>
+                </div>
+                <div class="map-instruction">✈️ Watch the plane fly and click the button to drop the bomb!</div>
+            </div>
+
+            <button type="submit" class="checkout-button" id="checkoutBtn">
+                Checkout - $30
+            </button>
+        </form>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <script>
+        let map;
+        let planeMarker;
+        let bombMarker;
+        let explosionMarker;
+        let isDropping = false;
+        let animationInterval;
+        
+        // Plane flight variables
+        let planePosition = { lat: 20, lng: 0 };
+        let planeVelocity = { lat: 0, lng: 0 };
+        let targetPosition = { lat: 0, lng: 0 };
+        let planeRotation = 0;
+        
+        const speed = 0.8;
+        const turnSpeed = 0.15;
+
+        // Initialize the map
+        function initMap() {
+            map = L.map('map', {
+                zoomControl: true,
+                scrollWheelZoom: true
+            }).setView([20, 0], 2);
+
+            // Add OpenStreetMap tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors',
+                maxZoom: 18,
+            }).addTo(map);
+
+            // Create custom plane icon
+            const planeIcon = L.divIcon({
+                html: '<div class="plane-icon">✈️</div>',
+                className: 'custom-plane-marker',
+                iconSize: [35, 35],
+                iconAnchor: [17.5, 17.5]
+            });
+
+            // Add plane marker
+            planeMarker = L.marker([planePosition.lat, planePosition.lng], { 
+                icon: planeIcon,
+                zIndexOffset: 1000
+            }).addTo(map);
+
+            // Set initial random target
+            setRandomTarget();
+
+            // Start plane animation
+            startPlaneAnimation();
+        }
+
+        // Set a random target for the plane to fly towards
+        function setRandomTarget() {
+            targetPosition.lat = (Math.random() - 0.5) * 140; // -70 to 70
+            targetPosition.lng = (Math.random() - 0.5) * 360; // -180 to 180
+        }
+
+        // Calculate angle between two points
+        function calculateAngle(from, to) {
+            const dy = to.lat - from.lat;
+            const dx = to.lng - from.lng;
+            return Math.atan2(dy, dx) * (180 / Math.PI);
+        }
+
+        // Calculate distance between two points
+        function calculateDistance(from, to) {
+            const dy = to.lat - from.lat;
+            const dx = to.lng - from.lng;
+            return Math.sqrt(dx * dx + dy * dy);
+        }
+
+        // Animate the plane flying like a fly
+        function startPlaneAnimation() {
+            animationInterval = setInterval(() => {
+                if (!isDropping) {
+                    // Check if we're close to target
+                    const distance = calculateDistance(planePosition, targetPosition);
+                    
+                    if (distance < 5) {
+                        // Pick a new random target
+                        setRandomTarget();
+                    }
+
+                    // Calculate desired angle
+                    const desiredAngle = calculateAngle(planePosition, targetPosition);
+                    
+                    // Smooth rotation towards target
+                    let angleDiff = desiredAngle - planeRotation;
+                    
+                    // Normalize angle difference to -180 to 180
+                    while (angleDiff > 180) angleDiff -= 360;
+                    while (angleDiff < -180) angleDiff += 360;
+                    
+                    // Turn towards target with some randomness
+                    planeRotation += angleDiff * turnSpeed + (Math.random() - 0.5) * 10;
+                    
+                    // Move in the direction we're facing
+                    const radians = (planeRotation * Math.PI) / 180;
+                    planeVelocity.lat = Math.sin(radians) * speed;
+                    planeVelocity.lng = Math.cos(radians) * speed;
+                    
+                    // Update position
+                    planePosition.lat += planeVelocity.lat;
+                    planePosition.lng += planeVelocity.lng;
+                    
+                    // Wrap around the world
+                    if (planePosition.lng > 180) planePosition.lng = -180;
+                    if (planePosition.lng < -180) planePosition.lng = 180;
+                    if (planePosition.lat > 85) planePosition.lat = 85;
+                    if (planePosition.lat < -85) planePosition.lat = -85;
+
+                    // Update plane position on map
+                    planeMarker.setLatLng([planePosition.lat, planePosition.lng]);
+
+                    // Rotate plane icon
+                    const planeElement = planeMarker.getElement();
+                    if (planeElement) {
+                        const icon = planeElement.querySelector('.plane-icon');
+                        if (icon) {
+                            icon.style.transform = `rotate(${planeRotation + 90}deg)`;
+                        }
+                    }
+                }
+            }, 50);
+        }
+
+        // Drop bomb from plane
+        async function dropBomb() {
+            if (isDropping) return;
+            
+            isDropping = true;
+            document.getElementById('dropBombBtn').disabled = true;
+            
+            // Remove previous markers if any
+            if (bombMarker) map.removeLayer(bombMarker);
+            if (explosionMarker) map.removeLayer(explosionMarker);
+
+            // Get current plane position
+            const bombLat = planePosition.lat;
+            const bombLng = planePosition.lng;
+
+            // Create bomb icon
+            const bombIcon = L.divIcon({
+                html: '<div class="bomb-marker">💣</div>',
+                className: 'custom-bomb-marker',
+                iconSize: [30, 30],
+                iconAnchor: [15, 15]
+            });
+
+            // Add bomb marker
+            bombMarker = L.marker([bombLat, bombLng], { 
+                icon: bombIcon,
+                zIndexOffset: 999
+            }).addTo(map);
+
+            // Zoom to bomb location
+            map.setView([bombLat, bombLng], 5, { animate: true });
+
+            // Wait for bomb to fall
+            await sleep(1500);
+
+            // Create explosion
+            const explosionIcon = L.divIcon({
+                html: '<div class="explosion">💥</div>',
+                className: 'custom-explosion-marker',
+                iconSize: [50, 50],
+                iconAnchor: [25, 25]
+            });
+
+            explosionMarker = L.marker([bombLat, bombLng], { 
+                icon: explosionIcon,
+                zIndexOffset: 1001
+            }).addTo(map);
+
+            // Remove bomb marker
+            if (bombMarker) map.removeLayer(bombMarker);
+
+            // Get country name using reverse geocoding
+            getCountryName(bombLat, bombLng);
+
+            // Remove explosion after animation
+            setTimeout(() => {
+                if (explosionMarker) map.removeLayer(explosionMarker);
+                isDropping = false;
+                document.getElementById('dropBombBtn').disabled = false;
+                
+                // Zoom back out
+                setTimeout(() => {
+                    map.setView([20, 0], 2, { animate: true });
+                }, 1000);
+            }, 800);
+        }
+
+        // Get country name from coordinates
+        async function getCountryName(lat, lng) {
+            try {
+                const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=3`);
+                const data = await response.json();
+                
+                let countryName = 'International Waters';
+                
+                if (data.address) {
+                    countryName = data.address.country || 'International Waters';
+                }
+
+                // Update country field
+                const countryInput = document.getElementById('country');
+                countryInput.value = countryName;
+                countryInput.classList.add('country-selected');
+                
+            } catch (error) {
+                console.error('Error getting location:', error);
+                document.getElementById('country').value = 'Unknown Location';
+            }
+        }
+
+        // Restart - clear country selection
+        function restart() {
+            const countryInput = document.getElementById('country');
+            countryInput.value = '';
+            countryInput.classList.remove('country-selected');
+            
+            // Remove markers
+            if (bombMarker) map.removeLayer(bombMarker);
+            if (explosionMarker) map.removeLayer(explosionMarker);
+            
+            // Reset map view
+            map.setView([20, 0], 2, { animate: true });
+            
+            // Re-enable drop button
+            isDropping = false;
+            document.getElementById('dropBombBtn').disabled = false;
+        }
+
+        // Handle checkout form submission
+        function handleCheckout(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const country = document.getElementById('country').value;
+            
+            if (!country) {
+                alert('Please select a country by dropping the bomb!');
+                return;
+            }
+            
+            alert(`Order placed! 🎉\n\nName: ${name}\nPhone: ${phone}\nCountry: ${country}\n\nTotal: $30\n\nThank you for your order!`);
+        }
+
+        // Helper function for delays
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // Initialize map when page loads
+        window.onload = initMap;
+
+        // Cleanup on page unload
+        window.onbeforeunload = () => {
+            if (animationInterval) {
+                clearInterval(animationInterval);
+            }
+        };
+    </script>
+</body>
+</html>
+

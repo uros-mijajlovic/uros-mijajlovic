@@ -60,3 +60,4 @@ We may update these Terms occasionally to reflect changes in our services. The l
 12. Contact Us
 If you have questions or concerns about these Terms, please contact us at urosmijajlovic@gmail.com
 
+
