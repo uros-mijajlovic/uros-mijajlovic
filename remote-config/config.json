@@ -6,5 +6,6 @@
   "kissdrop": false,
   "rizz-ranked": true,
   "souls-ai": true,
-  "triprank": false
+  "triprank-android": false,
+  "triprank-ios": true
 }
