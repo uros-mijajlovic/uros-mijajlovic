@@ -53,122 +53,25 @@
             font-weight: 400;
         }
         
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 60px;
-            margin-bottom: 50px;
-            flex-wrap: wrap;
-        }
-        
-        .stat {
-            text-align: center;
-        }
-        
-        .stat-number {
-            font-size: 28px;
-            font-weight: 600;
-            color: #fff;
-            display: block;
-        }
-        
-        .stat-label {
-            font-size: 14px;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 5px;
-        }
-        
-        .contact {
-            margin-top: 40px;
-        }
-        
-        .contact-item {
-            margin: 8px 0;
-            font-size: 16px;
-        }
-        
-        .contact-item a {
-            color: #888;
+        .email-btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background: #fff;
+            color: #0a0a0a;
             text-decoration: none;
-            transition: color 0.2s ease;
-        }
-        
-        .contact-item a:hover {
-            color: #fff;
-        }
-        
-        .divider {
-            width: 40px;
-            height: 1px;
-            background: #333;
-            margin: 30px auto;
-        }
-        
-        .projects {
-            margin: 40px 0;
-        }
-        
-        .projects-grid {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-        
-        .project-card {
-            text-align: center;
-            transition: transform 0.2s ease;
-        }
-        
-        .project-card:hover {
-            transform: translateY(-2px);
-        }
-        
-        .project-card a {
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-        
-        .project-logo {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
-            object-fit: cover;
-            margin-bottom: 12px;
-            border: 1px solid #333;
-        }
-        
-        .project-title {
-            font-size: 16px;
+            border-radius: 8px;
             font-weight: 500;
-            margin-bottom: 4px;
-            color: #fff;
+            transition: transform 0.2s ease, opacity 0.2s ease;
         }
         
-        .project-desc {
-            font-size: 13px;
-            color: #666;
-            font-weight: 400;
+        .email-btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
         }
         
         @media (max-width: 600px) {
             .name {
                 font-size: 32px;
-            }
-            
-            .stats {
-                gap: 40px;
-            }
-            
-            .stat-number {
-                font-size: 24px;
-            }
-            
-            .projects-grid {
-                gap: 30px;
             }
         }
     </style>
@@ -178,50 +81,9 @@
         <img src="pfp.jpeg" alt="Uros Mijajlovic" class="profile-img">
         
         <h1 class="name">Uroš Mijajlović</h1>
-        <p class="title">I make viral apps</p>
+        <p class="title">Looking for new opportunities</p>
         
-        <div class="stats">
-            <div class="stat">
-                <span class="stat-number">600K+</span>
-                <span class="stat-label">Downloads</span>
-            </div>
-            <div class="stat">
-                <span class="stat-number">$150K+</span>
-                <span class="stat-label">Revenue</span>
-            </div>
-        </div>
-        
-        <div class="divider"></div>
-        
-        <div class="projects">
-            <div class="projects-grid">
-                <div class="project-card">
-                    <a href="https://apps.apple.com/us/app/chatrecap-ai-chat-analysis/id6738325645" target="_blank">
-                        <img src="chatrecap.webp" alt="ChatRecap AI" class="project-logo">
-                        <h3 class="project-title">ChatRecap AI</h3>
-                        <p class="project-desc">$10K MRR</p>
-                    </a>
-                </div>
-                <div class="project-card">
-                    <a href="https://apps.apple.com/ca/app/smooth-irl-approach-lessons/id6737240733?platform=iphone" target="_blank">
-                        <img src="smooth-logo.png" alt="Smooth" class="project-logo">
-                        <h3 class="project-title">Smooth</h3>
-                        <p class="project-desc">$50 MRR</p>
-                    </a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="divider"></div>
-        
-        <div class="contact">
-            <div class="contact-item">
-                <a href="mailto:urosmijajlovic@gmail.com">urosmijajlovic@gmail.com</a>
-            </div>
-            <div class="contact-item">
-                <a href="tel:+38169665415">+381 69 665 415</a>
-            </div>
-        </div>
+        <a href="mailto:urosmijajlovic@gmail.com" class="email-btn">Email me</a>
     </div>
 </body>
 </html>
