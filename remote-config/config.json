@@ -7,5 +7,7 @@
   "rizz-ranked": true,
   "souls-ai": true,
   "triprank-android": false,
-  "triprank-ios": true
+  "triprank-ios": true,
+  "skirank-android": false,
+  "skirank-ios": true
 }
