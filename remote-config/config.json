@@ -9,5 +9,6 @@
   "triprank-android": false,
   "triprank-ios": true,
   "skirank-android": false,
-  "skirank-ios": true
+  "skirank-ios": true,
+  "skirank-for-app-review": true
 }
